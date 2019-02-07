@@ -11,7 +11,7 @@ package equiscuadrada;
  */
 public class Cruza {
     
-    public Individuo cruzaXMascara(int mask[], Individuo madre, Individuo padre){
+    public static Individuo cruzaXMascara(int mask[], Individuo madre, Individuo padre){
         Individuo hijo1,hijo2;
         int geno1[] = new int[12];
         int geno2[] = new int[12];
