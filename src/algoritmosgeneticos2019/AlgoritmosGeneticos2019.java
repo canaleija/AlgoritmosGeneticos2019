@@ -5,10 +5,11 @@
  */
 package algoritmosgeneticos2019;
 
-import equiscuadrada.GeneticoX2;
-import equiscuadrada.Individuo;
-import equiscuadrada.Poblacion;
 import java.util.ArrayList;
+import nreinas.GeneticoNReinas;
+import nreinas.Individuo;
+import nreinas.Poblacion;
+
 
 /**
  *
@@ -20,8 +21,9 @@ public class AlgoritmosGeneticos2019 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GeneticoX2 x2 = new GeneticoX2(100,50,0.3);
-        x2.evolucionar();
+        GeneticoNReinas gen = new GeneticoNReinas(100000,25, 0.2,1000);
+        gen.evolucionar();
+        System.out.println();
     }
     
 }
