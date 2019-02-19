@@ -19,6 +19,7 @@ public class GeneticoNReinas {
     private int numG,tamP;
     private double pMuta;
     private int n;
+    private double porMuestra;
     
 
     public GeneticoNReinas(int numG, int tamP, double pMuta, int n) {
@@ -34,8 +35,16 @@ public class GeneticoNReinas {
     // generar las itereaciones para las generaciones
     for(int g=1;g<this.numG;g++){
         // garantizar construir una nueva población
-        ArrayList<Individuo> ind = new ArrayList<>();
-        for(int i=0; i<this.tamP;i++){
+        ArrayList<Individuo> ind;
+        // calcular un N
+        int n = (int)(this.tamP*this.porMuestra);
+        if (n>0){
+        ind = this.poblacionActual.getMuestraAleatoria(n);
+        
+        }else {
+        ind = new ArrayList<>();
+        }
+        for(int i=n; i<this.tamP;i++){
             // seleccionamos
             Individuo madre = Seleccion.seleccionAleatoria(this.poblacionActual);
             Individuo padre = Seleccion.seleccionAleatoria(this.poblacionActual);
@@ -65,6 +74,13 @@ public class GeneticoNReinas {
 //    Individuo mejor  = this.poblacionActual.getMejor();
 //    System.out.println(mejor.getFitness());
     //System.out.println(Arrays.toString(mejor.getGenotipo()));
+    }
+
+    /**
+     * @param porMuestra the porMuestra to set
+     */
+    public void setPorMuestra(double porMuestra) {
+        this.porMuestra = porMuestra;
     }
     
 }

@@ -16,6 +16,7 @@ public class Individuo {
     private int genotipo[];
     private int fitness;
     private int n;
+    
 
     public Individuo(int n) {
         this.n = n;
