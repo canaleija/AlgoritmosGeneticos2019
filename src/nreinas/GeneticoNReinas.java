@@ -39,7 +39,9 @@ public class GeneticoNReinas {
         // calcular un N
         int n = (int)(this.tamP*this.porMuestra);
         if (n>0){
-        ind = this.poblacionActual.getMuestraAleatoria(n);
+        n = 1;
+        ind = new ArrayList<>();
+        ind.add(this.poblacionActual.getMejor());
         
         }else {
         ind = new ArrayList<>();
@@ -62,7 +64,7 @@ public class GeneticoNReinas {
       // pedimos el mejor a la poblacion 
     Individuo mejor  = this.poblacionActual.getMejor();
     int f = mejor.getFitness();
-    System.out.println(f);
+    System.out.println("g: "+g+" f:"+f);
     if(f==0){
         
         System.out.println("g: "+g+" "+Arrays.toString(mejor.getGenotipo()));

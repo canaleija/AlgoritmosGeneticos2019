@@ -21,8 +21,8 @@ public class AlgoritmosGeneticos2019 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GeneticoNReinas gen = new GeneticoNReinas(10,100, 0.2,10);
-        //gen.setPorMuestra(0.2);
+        GeneticoNReinas gen = new GeneticoNReinas(250000,15, 0.35,1000);
+        gen.setPorMuestra(0.10);
         gen.evolucionar();
         System.out.println();
     }
