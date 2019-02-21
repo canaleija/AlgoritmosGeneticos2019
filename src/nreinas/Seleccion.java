@@ -14,6 +14,9 @@ import java.util.Random;
  */
 public class Seleccion {
     
+    public enum TipoSeleccion{RANDOM,TORNEO}
+    public enum TipoMuestreo{MEJOR}
+    
     public static Individuo seleccionTorneo(Poblacion pob){
         Individuo mejor = new Individuo(pob.getMejor().getGenotipo());
         return mejor;

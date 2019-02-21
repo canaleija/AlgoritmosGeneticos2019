@@ -16,45 +16,40 @@ import java.util.Arrays;
 public class GeneticoNReinas {
     // parametros
     private Poblacion poblacionActual;
-    private int numG,tamP;
-    private double pMuta;
-    private int n;
-    private double porMuestra;
+    private Manager manager;
+
     
 
-    public GeneticoNReinas(int numG, int tamP, double pMuta, int n) {
-        this.numG = numG;
-        this.tamP = tamP;
-        this.pMuta = pMuta;
-        this.poblacionActual = new Poblacion(tamP,n);
-        this.n = n;
+    public GeneticoNReinas(Manager manager) {
+        this.manager = manager;
+        this.poblacionActual = new Poblacion(this.manager.getTamPoblacion(),this.manager.getTamGenotipo());
+        
     }
     
     public void evolucionar(){
-    int mascara[] = Cruza.generarMascaraAleatoria(n);
+   
     // generar las itereaciones para las generaciones
-    for(int g=1;g<this.numG;g++){
+    for(int g=1;g<this.manager.getNumGeneraciones();g++){
         // garantizar construir una nueva población
         ArrayList<Individuo> ind;
         // calcular un N
-        int n = (int)(this.tamP*this.porMuestra);
+        int n = (int)(this.manager.getTamPoblacion()*this.manager.getpMuestra());
         if (n>0){
-        n = 1;
         ind = new ArrayList<>();
         ind.add(this.poblacionActual.getMejor());
         
         }else {
         ind = new ArrayList<>();
         }
-        for(int i=n; i<this.tamP;i++){
+        for(int i=n; i<this.manager.getTamPoblacion();i++){
             // seleccionamos
-            Individuo madre = Seleccion.seleccionAleatoria(this.poblacionActual);
-            Individuo padre = Seleccion.seleccionAleatoria(this.poblacionActual);
+            Individuo madre = this.manager.aplicarSeleccion(poblacionActual,0);
+            Individuo padre = this.manager.aplicarSeleccion(poblacionActual,1);
             // reproducimos
-            Individuo hijo = Cruza.cruzaXMascara(mascara, madre, padre);
+            Individuo hijo = Cruza.cruzaXMascara(this.manager.getMask(), madre, padre);
             // mutamos 
             // evaluar la probabilidad
-            Muta.mutaGen(pMuta, hijo);
+            Muta.mutaGen(this.manager.getProbMuta(), hijo);
             // agregamos
             ind.add(hijo);
         }
@@ -78,11 +73,12 @@ public class GeneticoNReinas {
     //System.out.println(Arrays.toString(mejor.getGenotipo()));
     }
 
+
     /**
-     * @param porMuestra the porMuestra to set
+     * @return the manager
      */
-    public void setPorMuestra(double porMuestra) {
-        this.porMuestra = porMuestra;
+    public Manager getManager() {
+        return manager;
     }
     
 }

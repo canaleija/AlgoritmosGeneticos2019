@@ -8,7 +8,9 @@ package algoritmosgeneticos2019;
 import java.util.ArrayList;
 import nreinas.GeneticoNReinas;
 import nreinas.Individuo;
+import nreinas.Manager;
 import nreinas.Poblacion;
+import nreinas.Seleccion;
 
 
 /**
@@ -21,8 +23,8 @@ public class AlgoritmosGeneticos2019 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        GeneticoNReinas gen = new GeneticoNReinas(250000,15, 0.35,1000);
-        gen.setPorMuestra(0.10);
+        Manager mana = new Manager(100000, 100, 0.2, 0.2,new Seleccion.TipoSeleccion[]{Seleccion.TipoSeleccion.RANDOM,Seleccion.TipoSeleccion.TORNEO},15);
+        GeneticoNReinas gen = new GeneticoNReinas(mana);
         gen.evolucionar();
         System.out.println();
     }
