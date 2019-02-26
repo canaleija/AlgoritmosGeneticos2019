@@ -13,14 +13,14 @@ import java.util.Arrays;
  *
  * @author Roberto Cruz Leija
  */
-public class GeneticoNReinas {
+public class GeneticoNReinas implements Runnable{
     // parametros
     private Poblacion poblacionActual;
-    private Manager manager;
+    private Configuracion manager;
 
     
 
-    public GeneticoNReinas(Manager manager) {
+    public GeneticoNReinas(Configuracion manager) {
         this.manager = manager;
         this.poblacionActual = new Poblacion(this.manager.getTamPoblacion(),this.manager.getTamGenotipo());
         
@@ -59,7 +59,7 @@ public class GeneticoNReinas {
       // pedimos el mejor a la poblacion 
     Individuo mejor  = this.poblacionActual.getMejor();
     int f = mejor.getFitness();
-    System.out.println("g: "+g+" f:"+f);
+    System.out.println("g: "+g+" f:"+f+" id:"+this.hashCode());
     if(f==0){
         
         System.out.println("g: "+g+" "+Arrays.toString(mejor.getGenotipo()));
@@ -77,8 +77,13 @@ public class GeneticoNReinas {
     /**
      * @return the manager
      */
-    public Manager getManager() {
+    public Configuracion getManager() {
         return manager;
+    }
+
+    @Override
+    public void run() {
+        evolucionar();
     }
     
 }

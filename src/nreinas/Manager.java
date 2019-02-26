@@ -5,142 +5,53 @@
  */
 package nreinas;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Roberto Cruz Leija
  */
 public class Manager {
-   private int numGeneraciones;
-   private int tamPoblacion;
-   private double probMuta;
-   private double pMuestra;
-   private int mask[];
-   private Seleccion.TipoSeleccion tipoSeleccion[];
-   private int tamGenotipo;
-   
-    public Manager(int numGeneraciones, int tamPoblacion, double probMuta, double pMuestra, Seleccion.TipoSeleccion[] tipoSeleccion, int tamGenotipo) {
-        this.numGeneraciones = numGeneraciones;
-        this.tamPoblacion = tamPoblacion;
-        this.probMuta = probMuta;
-        this.pMuestra = pMuestra;
-        this.mask = Cruza.generarMascaraAleatoria(tamGenotipo);
-        this.tipoSeleccion = tipoSeleccion;
-        this.tamGenotipo = tamGenotipo;
+    
+    private String id;
+    private int nG;
+    private boolean ejecucion;
+    private ArrayList<GeneticoNReinas> geneticos;
+    private ArrayList<Configuracion> configuraciones;
+    private int reinas;
+    public Manager (String id, int reinas){
+        this.reinas = reinas;
+        this.nG = 0;
+        this.ejecucion = false;
+        this.geneticos = new ArrayList<>();
+        this.configuraciones = new ArrayList<>();
+        this.id = id;
     }
-
-   
-   
-   public Individuo aplicarSeleccion(Poblacion pobActual, int i){
-       Individuo aux = null; 
-       // evaluar i
-       switch(getTipoSeleccion()[i]){
-           case RANDOM:{
-             aux = Seleccion.seleccionAleatoria(pobActual);
-           break;}
-           case TORNEO:{
-             aux = Seleccion.seleccionTorneo(pobActual);
-           break;}   
-           default: aux = null;
-           
-       }
-   return aux;
-   }
-
-    /**
-     * @return the numGeneraciones
-     */
-    public int getNumGeneraciones() {
-        return numGeneraciones;
+    public void generarGeneticos(ArrayList<Configuracion> configuraciones){
+    // crear los geneticos en base a las configuraciones
+    this.nG = configuraciones.size();
+    for (int x=0; x<nG;x++){
+        this.configuraciones.add(configuraciones.get(x));
+        GeneticoNReinas gen = new GeneticoNReinas(configuraciones.get(x));
+        this.geneticos.add(gen);
     }
-
-    /**
-     * @param numGeneraciones the numGeneraciones to set
-     */
-    public void setNumGeneraciones(int numGeneraciones) {
-        this.numGeneraciones = numGeneraciones;
     }
-
-    /**
-     * @return the tamPoblacion
-     */
-    public int getTamPoblacion() {
-        return tamPoblacion;
+    public void generarGeneticos(int nG){
+    // crear los geneticos en base a las configuraciones
+    for (int x=0; x<nG;x++){
+        this.configuraciones.add(new Configuracion(this.reinas));
+        GeneticoNReinas gen = new GeneticoNReinas(configuraciones.get(x));
+        this.geneticos.add(gen);
     }
-
-    /**
-     * @param tamPoblacion the tamPoblacion to set
-     */
-    public void setTamPoblacion(int tamPoblacion) {
-        this.tamPoblacion = tamPoblacion;
     }
-
-    /**
-     * @return the probMuta
-     */
-    public double getProbMuta() {
-        return probMuta;
+    public void ejecutarGeneticos(){
+    // ejecutar los geneticos en un hilo diferente
+    for (GeneticoNReinas aux: this.geneticos){
+    Thread hilo = new Thread(aux);
+    hilo.start();
     }
-
-    /**
-     * @param probMuta the probMuta to set
-     */
-    public void setProbMuta(double probMuta) {
-        this.probMuta = probMuta;
+    this.ejecucion = true;
     }
-
-    /**
-     * @return the pMuestra
-     */
-    public double getpMuestra() {
-        return pMuestra;
-    }
-
-    /**
-     * @param pMuestra the pMuestra to set
-     */
-    public void setpMuestra(double pMuestra) {
-        this.pMuestra = pMuestra;
-    }
-
-    /**
-     * @return the mask
-     */
-    public int[] getMask() {
-        return mask;
-    }
-
-    /**
-     * @param mask the mask to set
-     */
-    public void setMask(int[] mask) {
-        this.mask = mask;
-    }
-
-    /**
-     * @return the tipoSeleccion
-     */
-    public Seleccion.TipoSeleccion[] getTipoSeleccion() {
-        return tipoSeleccion;
-    }
-
-    /**
-     * @param tipoSeleccion the tipoSeleccion to set
-     */
-    public void setTipoSeleccion(Seleccion.TipoSeleccion[] tipoSeleccion) {
-        this.tipoSeleccion = tipoSeleccion;
-    }
-
-    /**
-     * @return the tamGenotipo
-     */
-    public int getTamGenotipo() {
-        return tamGenotipo;
-    }
-
-    /**
-     * @param tamGenotipo the tamGenotipo to set
-     */
-    public void setTamGenotipo(int tamGenotipo) {
-        this.tamGenotipo = tamGenotipo;
-    }
+    
+    
 }
