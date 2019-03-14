@@ -25,7 +25,7 @@ public class Individuo {
         calcularFitness();
     }
     private void generarGenotipoAleatorio() {
-        this.genotipo = new int[100];
+        this.genotipo = new int[10];
         Random ran = new Random();
         for(int x=0; x< this.genotipo.length;x++)
              this.genotipo[x]= ran.nextInt(2);
@@ -59,6 +59,8 @@ public class Individuo {
         for (Clausula c:Clausula.clausulas){
             if(verificarClausula(c)){
                 this.fitness++;
+            } else{
+            System.out.println();
             }
         }
     }
@@ -72,16 +74,21 @@ public class Individuo {
 
     private int verificarNeg(int a) {
        boolean negacion = false;
+       int valor = -1;
        if(a<0){
            a*=-1;
            negacion = true;
            
        }
        if (negacion){
-       int valor = this.genotipo[a-1];
-       
+            valor = this.genotipo[a-1];
+        if (valor==0){valor = 1;}else{
+            valor = 0;
+        }
+       } else {
+            valor = this.genotipo[a-1];
        }
-       
+       return valor;
     }
     
     
