@@ -11,6 +11,7 @@ import nreinas.Manager;
 import nreinas.Seleccion;
 import nsat.Clausula;
 import nsat.Individuo;
+import nsat.Tokenizador;
 
 
 /**
@@ -35,16 +36,18 @@ public class AlgoritmosGeneticos2019 {
 //        m.generarGeneticos(configuraciones);
 //        m.ejecutarGeneticos();
 
-        Clausula.clausulas = new ArrayList<>();
-        Clausula.clausulas.add(new Clausula(-1, 5, 3));
-        Clausula.clausulas.add(new Clausula(1, -5, -2));
-        Clausula.clausulas.add(new Clausula(8, 4, -9));
-        Clausula.clausulas.add(new Clausula(10, -7, 6));
-        Clausula.clausulas.add(new Clausula(4, -10, -3));
-        
-       // Individuo i = new Individuo(new int[]{1,1,1,1,1,1,1,1,1,1});
-        Individuo i2 = new Individuo(new int[]{1,1,0,0,1,1,1,1,0,0});
-       // Individuo i3 = new Individuo(new int[]{0,0,0,0,0,1,1,0,0,0});
+//        Clausula.clausulas = new ArrayList<>();
+//        Clausula.clausulas.add(new Clausula(-1, -5, -3));
+//        Clausula.clausulas.add(new Clausula(1, -5, -2));
+//        Clausula.clausulas.add(new Clausula(8, 4, -9));
+//        Clausula.clausulas.add(new Clausula(10, -7, 6));
+//        Clausula.clausulas.add(new Clausula(4, -10, -3));
+
+        Tokenizador.leerDatos();
+
+        Individuo i = new Individuo();
+        Individuo i2 = new Individuo();
+        Individuo i3 = new Individuo();
         
         System.out.println();
         

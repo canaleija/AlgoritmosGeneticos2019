@@ -25,7 +25,7 @@ public class Individuo {
         calcularFitness();
     }
     private void generarGenotipoAleatorio() {
-        this.genotipo = new int[10];
+        this.genotipo = new int[100];
         Random ran = new Random();
         for(int x=0; x< this.genotipo.length;x++)
              this.genotipo[x]= ran.nextInt(2);
@@ -56,19 +56,17 @@ public class Individuo {
     private void calcularFitness() {
         // recorrer las clausulas
         this.fitness = 0;
-        for (Clausula c:Clausula.clausulas){
+        for (Clausula c:Tokenizador.clausulas){
             if(verificarClausula(c)){
                 this.fitness++;
-            } else{
-            System.out.println();
-            }
+            } 
         }
     }
 
     private boolean verificarClausula(Clausula c) {
        return (verificarNeg(c.getA())==1||
-                 verificarNeg(c.getB())==1||
-                 verificarNeg(c.getA())==1);
+             verificarNeg(c.getB())==1||
+                 verificarNeg(c.getC())==1);
             
     }
 

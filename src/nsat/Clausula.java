@@ -12,9 +12,7 @@ import java.util.ArrayList;
  * @author Roberto Cruz Leija
  */
 public class Clausula {
-    
-    public static ArrayList<Clausula> clausulas;
-    
+           
     private int a;
     private int b;
     private int c;
