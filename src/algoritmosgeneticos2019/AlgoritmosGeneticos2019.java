@@ -5,11 +5,7 @@
  */
 package algoritmosgeneticos2019;
 
-import java.util.ArrayList;
-import nreinas.Configuracion;
-import nreinas.Manager;
-import nreinas.Seleccion;
-import nsat.Clausula;
+import nsat.GeneticoNSAT;
 import nsat.Individuo;
 import nsat.Tokenizador;
 
@@ -45,9 +41,8 @@ public class AlgoritmosGeneticos2019 {
 
         Tokenizador.leerDatos();
 
-        Individuo i = new Individuo();
-        Individuo i2 = new Individuo();
-        Individuo i3 = new Individuo();
+        GeneticoNSAT gen = new GeneticoNSAT(1000000, 80, 0.25);
+        gen.evolucionar();
         
         System.out.println();
         
