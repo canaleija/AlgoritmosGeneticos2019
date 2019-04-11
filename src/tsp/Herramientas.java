@@ -23,6 +23,7 @@ import javax.swing.JFileChooser;
 public class Herramientas {
     
     public static double distancias [][];
+    public static double inclinaciones [];
     
     public static void generarDistanciasAletorias(int numCiudades,int limDistancia){
         distancias = new double[numCiudades][numCiudades];
@@ -40,7 +41,24 @@ public class Herramientas {
             }
            
     }
-   
+    
+    public static void generarInclinacionesAletorias(int numCiudades,int limInclinacion){
+        inclinaciones = new double[numCiudades];
+        Random ran = new Random();
+        
+        
+            for(int y=0; y < numCiudades;y++){
+              
+                double incli = ran.nextInt(limInclinacion)+0.1;
+                
+                inclinaciones[y] = incli;
+          
+              
+               
+            }
+           
+  
+    }
     public static void cargarDistancias()  {
         FileReader archivos = null;
         try {

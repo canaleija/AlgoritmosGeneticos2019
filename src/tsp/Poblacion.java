@@ -44,7 +44,7 @@ public class Poblacion {
     public Individuo getMejor(){
         int idMejor = 0;
         for(int x=1;x<this.indivduos.size();x++){
-            if(this.indivduos.get(x).getFitness()>this.indivduos.get(idMejor).getFitness()){
+            if(this.indivduos.get(x).getFitnessDistancia()>this.indivduos.get(idMejor).getFitnessDistancia()){
             idMejor = x;
             }
         }
@@ -81,8 +81,8 @@ public class Poblacion {
      for(int z = 1; z < this.indivduos.size(); ++z) {
       for(int v = 0; v < (this.indivduos.size() - z); ++v) {
          
-         if(this.indivduos.get(v).getFitness()
-                 > this.indivduos.get(v+1).getFitness()){
+         if(this.indivduos.get(v).getFitnessDistancia()
+                 > this.indivduos.get(v+1).getFitnessDistancia()){
             Individuo aux = new Individuo(this.indivduos.get(v).getGenotipo());
             this.indivduos.set(v,new Individuo(this.indivduos.get(v+1).getGenotipo()));
             this.indivduos.set(v+1,aux);

@@ -20,7 +20,7 @@ public class Cruza {
         Muta.mutaGen(1, i1);
         Muta.mutaGen(1, i2);
         
-        return i1.getFitness()<i2.getFitness()? i1:i2; 
+        return i1.getFitnessDistancia()<i2.getFitnessDistancia()? i1:i2; 
         
     }
     public static Individuo cruzaAsexual(Individuo padre,Individuo madre){
@@ -57,7 +57,7 @@ public class Cruza {
         Individuo mejor = lista.get(0);
         
         for (int x=1; x<lista.size();x++){
-           if(lista.get(x).getFitness()<mejor.getFitness()){
+           if(lista.get(x).getFitnessDistancia()<mejor.getFitnessDistancia()){
             mejor =lista.get(x);
            }
         }

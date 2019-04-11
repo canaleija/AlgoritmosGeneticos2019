@@ -16,7 +16,9 @@ import java.util.Random;
 public class Individuo {
     
     private int genotipo[];
-    private double fitness;
+    private double fitnessDistancia;
+    private double fitnessInclinacion;
+    private double fitnessGeneral;
     private int n;
     private int ci;
     
@@ -25,13 +27,16 @@ public class Individuo {
         this.n = n;
         this.ci = ci;
         generarGenotipoAleatorio();
-         calcularFitness();
+        calcularFitnessDistancia();
+        calcularFitnessGeneral();
     }
     public Individuo(int genotipo[]){
          this.n = genotipo.length;
          this.ci = genotipo[0];
          this.genotipo = genotipo.clone();
-         calcularFitness();
+         calcularFitnessDistancia();
+         calcularFitnessInclinacion();
+         calcularFitnessGeneral();
     }
     private void generarGenotipoAleatorio() {
        this.genotipo = new int[this.n];
@@ -53,7 +58,9 @@ public class Individuo {
     }
     public void actualizarIndividuo(){
     
-       calcularFitness();
+       calcularFitnessDistancia();
+       calcularFitnessInclinacion();
+       calcularFitnessGeneral();
     }
    
 
@@ -66,21 +73,50 @@ public class Individuo {
 
 
     /**
-     * @return the fitness
+     * @return the fitnessDistancia
      */
-    public double getFitness() {
-        return fitness;
+    public double getFitnessDistancia() {
+        return fitnessDistancia;
     }
-
-    private void calcularFitness() {
+    private void calcularFitnessInclinacion(){
+        
+        // recorrer el individudo y consultamos las inclinaciones
+        for (int x=0 ; x<this.genotipo.length-1;x++){
+            this.fitnessInclinacion+=Herramientas.inclinaciones[this.genotipo[x]]-Herramientas.inclinaciones[this.genotipo[x+1]];
+        }
+     // agregamos la inclinacion de la ultima a la inicial
+     this.fitnessInclinacion+=Herramientas.inclinaciones[this.genotipo[this.genotipo.length-1]]-Herramientas.inclinaciones[this.genotipo[0]];
+    
+    }
+    private void calcularFitnessDistancia() {
        int ultima = this.genotipo[this.n-1];
        int primera = this.genotipo[0];
-       this.fitness = Herramientas.distancias[primera][ultima];
+       this.fitnessDistancia = Herramientas.distancias[primera][ultima];
       // recorremos el genotipo
       for(int x=0;x<this.n-1;x++){
-         this.fitness += Herramientas.distancias[this.genotipo[x]][this.genotipo[x+1]];
+         this.fitnessDistancia += Herramientas.distancias[this.genotipo[x]][this.genotipo[x+1]];
       
       }
      }
+
+    /**
+     * @return the fitnessInclinacion
+     */
+    public double getFitnessInclinacion() {
+        return fitnessInclinacion;
+    }
      
+    private void calcularFitnessGeneral(){
+        // 1er Forma 
+        this.fitnessGeneral = (0.5)*Math.abs(fitnessDistancia)+(0.5)*Math.abs(fitnessInclinacion);
+    }
+
+    /**
+     * @return the fitnessGeneral
+     */
+    public double getFitnessGeneral() {
+        return fitnessGeneral;
+    }
+    
+    
 }

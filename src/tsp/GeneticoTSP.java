@@ -27,7 +27,9 @@ public class GeneticoTSP {
     }
     
     public void evolucionar(){
-    Individuo mejor = null;
+        Grafica grafica = new Grafica("Puntos ", "Distancias","Inclinaciones");
+        grafica.crearSerie("0");
+        Individuo mejor = null;
     // generar las itereaciones para las generaciones
     for(int g=1;g<this.numG;g++){
         // garantizar construir una nueva población
@@ -49,19 +51,14 @@ public class GeneticoTSP {
         this.poblacionActual = new Poblacion(ind);
        // pedimos el mejor a la poblacion 
        mejor  = this.poblacionActual.getMejor();
-   
-        System.out.println(g+": "+mejor.getFitness());
+       grafica.crearPuntoASerie("0",mejor.getFitnessDistancia(),mejor.getFitnessInclinacion());
+        System.out.println(g+": "+mejor.getFitnessGeneral());
     }
     
-    System.out.println(mejor.getFitness());
-    System.out.println(Arrays.toString(mejor.getGenotipo()));
+    grafica.crearGrafica();
+    
     }
 
-    private void mejor() {
-       Individuo i = new Individuo(new int[]{0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0});
-       this.poblacionActual.getIndivduos().add(i);
-    }
-    
     public static void main(String[] args){
         
         Herramientas.cargarDistancias();
